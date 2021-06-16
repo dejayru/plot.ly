@@ -1,100 +1,101 @@
 function buildMetadata(sample) {
     d3.json("samples.json").then((data) => {
       var metadata= data.metadata;
-      var resultsarray= metadata.filter(sampleobject => sampleobject.id == sample);
+      var resultsarray= metadata.filter(sampleobject => 
+        sampleobject.id == sample);
       var result= resultsarray[0]
-      var PANEL = d3.select("#sample-metadata");
-      PANEL.html("");
+      var panel = d3.select("#sample-metadata");
+      panel.html("");
       Object.entries(result).forEach(([key, value]) => {
-        PANEL.append("h6").text(`${key}: ${value}`);
+        panel.append("h6").text(`${key}: ${value}`);
       });
-
-      // Gauge Chart
-    
+       
     });
   }
-
-
-function buildCharts(sample) {
-
-  // sample data for the plots
+  
+  
+  function buildCharts(sample) {
+  
+  // Use `d3.json` to fetch the sample data for the plots
   d3.json("samples.json").then((data) => {
-    var metadata= data.metadata;
-    var resultsarray= metadata.filter(sampleobject => sampleobject.id == sample);
+    var samples= data.samples;
+    var resultsarray= samples.filter(sampleobject => 
+        sampleobject.id == sample);
     var result= resultsarray[0]
-
+  
     var ids = result.otu_ids;
     var labels = result.otu_labels;
     var values = result.sample_values;
 
-
-    // bubble Chart using the sample data
     var LayoutBubble = {
-      margin: { t: 0 },
-      xaxis: { title: "Id's" },
-      hovermode: "closest",
-      };
-
-      var DataBubble = [
-      {
-        x: ids,
-        y: values,
-        text: labels,
-        mode: "markers",
-        marker: {
-          color: ids,
-          size: values,
-          }
-      }
-    ];
-
-    Plotly.plot("bubble", DataBubble, LayoutBubble);
-
-    // Pie Chart
-   
-    var pie_data = [
-      {
-        values: values.slice(0, 10),
-        labels: ids.slice(0, 10),
-        hovertext: labels.slice(0, 10),
-        hoverinfo: "hovertext",
-        type: "pie"
-      }
-    ];
-
-    var pie_layout = {
-      margin: { t: 0, l: 0 }
-    };
-
-    Plotly.plot("pie", pie_data, pie_layout);
-  });
-}
-
-function init() {
-  
-  var selector = d3.select("#selDataset");
-
-  
-  d3.json("samples.json").then((data) => {
-    var sampleNames = data.names;
-    sampleNames.forEach((sample) => {
-      selector
-        .append("option")
-        .text(sample)
-        .property("value", sample);
-    });
-
+        margin: { t: 0 },
+        xaxis: { title: "OTU ID" },
+        hovermode: "closest",
+        };
     
-    const firstSample = sampleNames[0];
-    buildCharts(firstSample);
-    buildMetadata(firstSample);
-  });
-}
-
+        var DataBubble = [ 
+        {
+          x: ids,
+          y: values,
+          text: labels,
+          mode: "markers",
+          marker: {
+            color: ids,
+            size: values,
+            }
+        }
+      ];
+    
+      Plotly.newPlot("bubble", DataBubble, LayoutBubble);
+    
+    
+  
+      var bar_data =[
+        {
+          y:ids.slice(0, 10).map(otuID => `OTU ${otuID}`).reverse(),
+          x:values.slice(0,10).reverse(),
+          text:labels.slice(0,10).reverse(),
+          type:"bar",
+          orientation:"h"
+    
+        }
+      ];
+    
+      var barLayout = {
+        title: "Top 10 Bacteria Cultures Found",
+        margin: { t: 30, l: 150 }
+      };
+    
+      Plotly.newPlot("bar", bar_data, barLayout);
+    });
+    }
+     
+    
+    function init() {
+    // Grab a reference to the dropdown select element
+    var selector = d3.select("#selDataset");
+    
+    // Use the list of sample names to populate the select options
+    d3.json("samples.json").then((data) => {
+      var sampleNames = data.names;
+      sampleNames.forEach((sample) => {
+        selector
+          .append("option")
+          .text(sample)
+          .property("value", sample);
+      });
+    
+      // Use the first sample from the list to build the initial plots
+      const firstSample = sampleNames[0];
+      buildCharts(firstSample);
+      buildMetadata(firstSample);
+    });
+    }
+    
 function optionChanged(newSample) {
-  buildCharts(newSample);
-  buildMetadata(newSample);
-}
-
-
+// Fetch new data each time a new sample is selected
+buildCharts(newSample);
+buildMetadata(newSample);
+}     
+ // Initialize the dashboard
 init();
