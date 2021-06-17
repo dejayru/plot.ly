@@ -53,15 +53,13 @@ function resetData() {
 
 function plotCharts(id) {
 
-    // read in the JSON data
+    // read in JSON data
     d3.json("data/samples.json").then((data => {
 
         
-
-        // filter the metadata for the ID chosen
+        // filter on metadata 
         var individualMetadata = data.metadata.filter(participant => participant.id == id)[0];
 
-        // get the wash frequency for gauge chart later
         var wfreq = individualMetadata.wfreq;
 
         // Iterate through each key and value in the metadata
