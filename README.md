@@ -12,3 +12,9 @@
 
 ![hw01](https://user-images.githubusercontent.com/78757067/122311167-95221600-cedf-11eb-8478-39a3ccd31690.png)
 
+3. Create a bubble chart that displays each sample.
+   - Use otu_ids for the x values.
+   - Use sample_values for the y values.
+   - Use sample_values for the marker size.
+   - Use otu_ids for the marker colors.
+   - Use otu_labels for the text values.
