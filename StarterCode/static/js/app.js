@@ -317,21 +317,21 @@ function plotCharts(id) {
         Plotly.newPlot('gauge', dataGauge, layoutGauge);
 
 
-    })); // close .then function
+    })); 
 
-}; // close plotCharts() function
+}; 
 
-// when there is a change in the dropdown select menu, this function is called with the ID as a parameter
+
 function optionChanged(id) {
 
-    // reset the data
+    
     resetData();
 
-    // plot the charts for this id
+    
     plotCharts(id);
 
 
-} // close optionChanged function
+} 
 
-// call the init() function for default data
+
 init();
