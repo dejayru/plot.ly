@@ -4,18 +4,11 @@
 # Step 1: Plotly
 
 
-Use the D3 library to read in samples.json.
+1. Use the D3 library to read in samples.json.
+2. Create a horizontal bar chart with a dropdown menu to display the top 10 OTUs found in that individual.
+   - Use sample_values as the values for the bar chart.
+   - Use otu_ids as the labels for the bar chart.
+   - Use otu_labels as the hovertext for the chart.
 
+![hw01](https://user-images.githubusercontent.com/78757067/122311167-95221600-cedf-11eb-8478-39a3ccd31690.png)
 
-Create a horizontal bar chart with a dropdown menu to display the top 10 OTUs found in that individual.
-
-
-
-
-Use sample_values as the values for the bar chart.
-
-
-Use otu_ids as the labels for the bar chart.
-
-
-Use otu_labels as the hovertext for the chart.
