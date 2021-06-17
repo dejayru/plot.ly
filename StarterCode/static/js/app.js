@@ -62,36 +62,31 @@ function plotCharts(id) {
 
         var wfreq = individualMetadata.wfreq;
 
-        // Iterate through each key and value in the metadata
+        
         Object.entries(individualMetadata).forEach(([key, value]) => {
 
             var newList = demographicsTable.append("ul");
             newList.attr("class", "list-group list-group-flush");
 
-            // append a li item to the unordered list tag
+            
             var listItem = newList.append("li");
 
-            // change the class attributes of the list item for styling
+           
             listItem.attr("class", "list-group-item p-1 demo-text bg-transparent");
 
-            // add the key value pair from the metadata to the demographics list
+            
             listItem.text(`${key}: ${value}`);
 
-        }); // close forEach
+        }); 
 
-        // --------------------------------------------------
-        // RETRIEVE DATA FOR PLOTTING CHARTS
-        // --------------------------------------------------
-
-        // filter the samples for the ID chosen
         var individualSample = data.samples.filter(sample => sample.id == id)[0];
 
-        // create empty arrays to store sample data
+        
         var otuIds = [];
         var otuLabels = [];
         var sampleValues = [];
 
-        // Iterate through each key and value in the sample to retrieve data for plotting
+        
         Object.entries(individualSample).forEach(([key, value]) => {
 
             switch (key) {
