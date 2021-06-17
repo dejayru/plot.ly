@@ -102,23 +102,19 @@ function plotCharts(id) {
                     // case
                 default:
                     break;
-            } // close switch statement
+            } 
 
-        }); // close forEach
+        }); 
 
-        // slice and reverse the arrays to get the top 10 values, labels and IDs
+        
         var topOtuIds = otuIds[0].slice(0, 10).reverse();
         var topOtuLabels = otuLabels[0].slice(0, 10).reverse();
         var topSampleValues = sampleValues[0].slice(0, 10).reverse();
 
-        // use the map function to store the IDs with "OTU" for labelling y-axis
+        
         var topOtuIdsFormatted = topOtuIds.map(otuID => "OTU " + otuID);
 
-        // ----------------------------------
-        // PLOT BAR CHART
-        // ----------------------------------
-
-        // create a trace
+        
         var traceBar = {
             x: topSampleValues,
             y: topOtuIdsFormatted,
@@ -130,10 +126,10 @@ function plotCharts(id) {
             }
         };
 
-        // create the data array for plotting
+        
         var dataBar = [traceBar];
 
-        // define the plot layout
+        
         var layoutBar = {
             height: 500,
             width: 600,
@@ -162,14 +158,10 @@ function plotCharts(id) {
         }
 
 
-        // plot the bar chart to the "bar" div
+        
         Plotly.newPlot("bar", dataBar, layoutBar);
 
-        // ----------------------------------
-        // PLOT BUBBLE CHART
-        // ----------------------------------
-
-        // create trace
+        
         var traceBub = {
             x: otuIds[0],
             y: sampleValues[0],
@@ -182,10 +174,10 @@ function plotCharts(id) {
             }
         };
 
-        // create the data array for the plot
+        
         var dataBub = [traceBub];
 
-        // define the plot layout
+        
         var layoutBub = {
             font: {
                 family: 'Quicksand'
@@ -206,19 +198,15 @@ function plotCharts(id) {
             showlegend: false,
         };
 
-        // plot the bubble chat to the appropriate div
+        
         Plotly.newPlot('bubble', dataBub, layoutBub);
 
-        // ----------------------------------
-        // PLOT GAUGE CHART (OPTIONAL)
-        // ----------------------------------
-
-        // if wfreq has a null value, make it zero for calculating pointer later
+        
         if (wfreq == null) {
             wfreq = 0;
         }
 
-        // create an indicator trace for the gauge chart
+        
         var traceGauge = {
             domain: { x: [0, 1], y: [0, 1] },
             value: wfreq,
@@ -232,7 +220,7 @@ function plotCharts(id) {
                         size: 15
                     }
                 },
-                bar: { color: 'rgba(8,29,88,0)' }, // making gauge bar transparent since a pointer is being used instead
+                bar: { color: 'rgba(8,29,88,0)' }, 
                 steps: [
                     { range: [0, 1], color: 'rgb(255,255,217)' },
                     { range: [1, 2], color: 'rgb(237,248,217)' },
@@ -247,18 +235,17 @@ function plotCharts(id) {
             }
         };
 
-        // determine angle for each wfreq segment on the chart
+        
         var angle = (wfreq / 9) * 180;
 
-        // calculate end points for triangle pointer path
+        
         var degrees = 180 - angle,
             radius = .8;
         var radians = degrees * Math.PI / 180;
         var x = radius * Math.cos(radians);
         var y = radius * Math.sin(radians);
 
-        // Path: to create needle shape (triangle). Initial coordinates of two of the triangle corners plus the third calculated end tip that points to the appropriate segment on the gauge 
-        // M aX aY L bX bY L cX cY Z
+        
         var mainPath = 'M -.0 -0.025 L .0 0.025 L ',
             cX = String(x),
             cY = String(y),
@@ -267,7 +254,7 @@ function plotCharts(id) {
 
         gaugeColors = ['rgb(8,29,88)', 'rgb(37,52,148)', 'rgb(34,94,168)', 'rgb(29,145,192)', 'rgb(65,182,196)', 'rgb(127,205,187)', 'rgb(199,233,180)', 'rgb(237,248,217)', 'rgb(255,255,217)', 'white']
 
-        // create a trace to draw the circle where the needle is centered
+        
         var traceNeedleCenter = {
             type: 'scatter',
             showlegend: false,
@@ -278,13 +265,12 @@ function plotCharts(id) {
             hoverinfo: 'name'
         };
 
-        // create a data array from the two traces
+        
         var dataGauge = [traceGauge, traceNeedleCenter];
 
-        // define a layout for the chart
+        
         var layoutGauge = {
 
-            // draw the needle pointer shape using path defined above
             shapes: [{
                 type: 'path',
                 path: path,
@@ -316,18 +302,18 @@ function plotCharts(id) {
                 showticklabels: false,
                 showgrid: false,
                 range: [-1, 1],
-                fixedrange: true // disable zoom
+                fixedrange: true 
             },
             yaxis: {
                 zeroline: false,
                 showticklabels: false,
                 showgrid: false,
                 range: [-0.5, 1.5],
-                fixedrange: true // disable zoom
+                fixedrange: true 
             }
         };
 
-        // plot the gauge chart
+        
         Plotly.newPlot('gauge', dataGauge, layoutGauge);
 
 
