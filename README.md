@@ -19,3 +19,7 @@
    - Use otu_ids for the marker colors.
    - Use otu_labels for the text values.
 <img width="1416" alt="bubble_chart" src="https://user-images.githubusercontent.com/78757067/122311245-c3075a80-cedf-11eb-9c45-5f3fa3b3769c.png">
+
+4. Display the sample metadata, i.e., an individual's demographic information.
+5. Display each key-value pair from the metadata JSON object somewhere on the page.
+
