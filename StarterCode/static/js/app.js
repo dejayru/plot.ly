@@ -23,45 +23,40 @@ function init() {
     d3.json("data/samples.json").then((data => {
 
         
-        //  use a forEach to loop over each name in the array data.names to populate dropdowns with IDs
+        //  use a forEach to loop over each name  data.names 
         data.names.forEach((name => {
             var option = idSelect.append("option");
             option.text(name);
-        })); // close forEach
+        })); 
 
-        // get the first ID from the list for initial charts as a default
+        
         var initId = idSelect.property("value")
 
-        // plot charts with initial ID
+        // plot charts 
         plotCharts(initId);
 
-    })); // close .then()
+    })); 
 
-} // close init() function
+} 
 
-// create a function to reset divs to prepare for new data
+// function to reset divs to prepare for new data
 function resetData() {
 
-    // ----------------------------------
-    // CLEAR THE DATA
-    // ----------------------------------
-
+    
     demographicsTable.html("");
     barChart.html("");
     bubbleChart.html("");
     gaugeChart.html("");
 
-}; // close resetData()
+}; 
 
-// create a function to read JSON and plot charts
+
 function plotCharts(id) {
 
     // read in the JSON data
     d3.json("data/samples.json").then((data => {
 
-        // ----------------------------------
-        // POPULATE DEMOGRAPHICS TABLE
-        // ----------------------------------
+        
 
         // filter the metadata for the ID chosen
         var individualMetadata = data.metadata.filter(participant => participant.id == id)[0];
