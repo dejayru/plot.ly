@@ -24,3 +24,5 @@
 5. Display each key-value pair from the metadata JSON object somewhere on the page.
 
 ![hw03](https://user-images.githubusercontent.com/78757067/122311297-dfa39280-cedf-11eb-8630-31b816a4c1b3.png)
+
+6. Update all of the plots any time that a new sample is selected.
