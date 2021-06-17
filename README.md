@@ -18,3 +18,4 @@
    - Use sample_values for the marker size.
    - Use otu_ids for the marker colors.
    - Use otu_labels for the text values.
+<img width="1416" alt="bubble_chart" src="https://user-images.githubusercontent.com/78757067/122311245-c3075a80-cedf-11eb-9c45-5f3fa3b3769c.png">
