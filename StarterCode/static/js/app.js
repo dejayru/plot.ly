@@ -20,13 +20,14 @@ function init() {
     resetData();
 
     // read in JSON file
-    d3.json("data/samples.json").then((data => {
+    d3.json("data/samples.json").then((data => { var sampleNames = data.names;
 
         
         //  use a forEach to loop over each name  data.names 
-        data.names.forEach((name => {
+        sampleNames.forEach((name => {
             var option = idSelect.append("option");
             option.text(name);
+            property("value", sample)
         })); 
 
         
